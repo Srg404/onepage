@@ -1,0 +1,18 @@
+body {
+    font-size: 16px;
+    font-weight: 300;
+    color: $text-color;
+    font-family: $text-font-stack;
+	background: $white;	
+}
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+a{
+	color: $main-color;
+	&:hover{
+		color: $main-color;
+	}
+}
