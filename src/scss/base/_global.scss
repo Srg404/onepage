@@ -1,18 +1,126 @@
 body {
-    font-size: 16px;
-    font-weight: 300;
-    color: $text-color;
-    font-family: $text-font-stack;
-	background: $white;	
+  font-size: 16px;
+  font-weight: 300;
+  color: $text-color;
+  font-family: $text-font-stack;
+  background: $white;
+  margin: 0;
+  padding: 0;
 }
-img{
-	max-width: 100%;
-	height: auto;
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-a{
-	color: $main-color;
-	&:hover{
-		color: $main-color;
-	}
+a {
+  color: $main-color;
+  &:hover {
+    color: $main-color;
+  }
+}
+section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  color: $white;
+  position: relative;
+  overflow: hidden;
+  .container {
+    position: relative;
+    z-index: 3;
+  }
+  .background {
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-size: cover;
+  }
+  .mask {
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: #e76f51;
+    transform: translate(0, -100%);
+  }
+  .brush {
+    color: #e76f51;
+    z-index: 1;
+    position: absolute;
+    height: 20%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: currentColor;
+    transform: translate(0, -110%);
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      aspect-ratio: 1/ 1;
+      border-radius: 50%;
+      left: 0;
+      top: 0;
+      background: currentColor;
+      transform: translate(-50%, 0);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      height: 100%;
+      aspect-ratio: 1/ 1;
+      border-radius: 50%;
+      right: 0;
+      top: 0;
+      background: currentColor;
+      transform: translate(50%, 0);
+    }
+  }
+}
+[id="first-section"] {
+  background: #264653;
+}
+[id="second-section"] {
+  background: #2a9d8f;
+  .background {
+    width: 110%;
+    height: 110%;
+    background-image: url(../images/me.jpg);
+  }
+}
+[id="third-section"] {
+  background: #e9c46a;
+  .background {
+    background-image: url(../images/trees-2.jpg);
+  }
+}
+[id="fourth-section"] {
+  background: #f4a261;
+  .background {
+    background-image: url(../images/home.jpg);
+  }
+}
+[id="fifth-section"] {
+  background: #e76f51;
+  .background:not(.mask) {
+    background-image: url(../images/trees-2.jpg);
+    z-index: 1;
+  }
+  .background.masker {
+    z-index: 2;
+    background-image: url(../images/trees-3.jpg);
+    mask: url(../images/effect.png);
+    mask-repeat: no-repeat;
+    mask-size: 200% auto;
+    mask-position: -3000px 0px;
+  }
+}
+[id="sixth-section"] {
+  background: #e9c46a;
 }

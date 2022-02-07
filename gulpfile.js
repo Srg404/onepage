@@ -1,7 +1,8 @@
 const gulp = require("gulp");
 const clean = require("gulp-clean");
 const sass = require("gulp-dart-sass");
-const concat = require("gulp-concat");
+const babel = require('gulp-babel');
+const webpack = require('webpack-stream');
 const uglify = require("gulp-uglify");
 const autoprefixer = require("gulp-autoprefixer");
 const rename = require('gulp-rename');
@@ -42,7 +43,13 @@ gulp.task("js", () => {
   return gulp
     .src(src.jsPath)
     .pipe(sourcemaps.init())
-    .pipe(concat("scripts.min.js"))
+    .pipe(babel({
+      presets: ['@babel/env']
+    }))
+    .pipe(webpack({
+      mode: 'development'
+    }))
+    .pipe(rename("scripts.min.js"))
     .pipe(uglify())
     .pipe(sourcemaps.write(src.mapPath))
     .pipe(gulp.dest("js"))
