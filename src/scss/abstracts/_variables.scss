@@ -4,8 +4,7 @@
 
 /// Regular font family
 /// @type List
-$text-font-stack: 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
-
+$text-font-stack: "IBM Plex Mono", monospace !default;
 /// Link color
 /// @type Color
 $link-color: #50b28f !default;
@@ -46,8 +45,6 @@ $white: #ffffff !default;
 /// @type Color
 $black: #000000 !default;
 
-
-
 /// Container's maximum width
 /// @type Length
 $max-width: 1000px !default;
@@ -56,7 +53,7 @@ $max-width: 1000px !default;
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels
 $breakpoints: (
-  'small': 600px,
-  'medium': 840px,
-  'large': 960px,
+  "small": 600px,
+  "medium": 840px,
+  "large": 960px,
 ) !default;

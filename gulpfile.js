@@ -1,19 +1,20 @@
 const gulp = require("gulp");
 const clean = require("gulp-clean");
 const sass = require("gulp-dart-sass");
-const babel = require('gulp-babel');
-const webpack = require('webpack-stream');
+const babel = require("gulp-babel");
+const webpack = require("webpack-stream");
 const uglify = require("gulp-uglify");
 const autoprefixer = require("gulp-autoprefixer");
-const rename = require('gulp-rename');
-const sourcemaps = require('gulp-sourcemaps');
-const browsersync = require('browser-sync').create();
+const rename = require("gulp-rename");
+const sourcemaps = require("gulp-sourcemaps");
+const browsersync = require("browser-sync").create();
 
 const src = {
   sassPath: "src/scss/**/*.scss",
-  jsPath: "src/js/**/*.js",
+  jsPath: "src/js/*.js",
+  jsPathWatch: "src/js/**/*.js",
   mapPath: ".",
-}
+};
 
 // Compile SASS
 gulp.task("sass", () => {
@@ -22,17 +23,19 @@ gulp.task("sass", () => {
     .pipe(sourcemaps.init())
     .pipe(
       sass({
-        outputStyle: "compressed"
+        outputStyle: "compressed",
       }).on("error", sass.logError)
     )
     .pipe(
       autoprefixer({
-        cascade: false
+        cascade: false,
       })
     )
-    .pipe(rename((path) => {
+    .pipe(
+      rename((path) => {
         path.extname = ".min.css";
-    }))
+      })
+    )
     .pipe(sourcemaps.write(src.mapPath))
     .pipe(gulp.dest("css"))
     .pipe(browsersync.reload({ stream: true }));
@@ -43,12 +46,16 @@ gulp.task("js", () => {
   return gulp
     .src(src.jsPath)
     .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['@babel/env']
-    }))
-    .pipe(webpack({
-      mode: 'development'
-    }))
+    .pipe(
+      babel({
+        presets: ["@babel/env"],
+      })
+    )
+    .pipe(
+      webpack({
+        mode: "development",
+      })
+    )
     .pipe(rename("scripts.min.js"))
     .pipe(uglify())
     .pipe(sourcemaps.write(src.mapPath))
@@ -57,26 +64,29 @@ gulp.task("js", () => {
 });
 
 // Start App on Browser
-gulp.task('browser-sync', () => {
+gulp.task("browser-sync", () => {
   browsersync.init({
-    server: "./"
+    server: "./",
   });
 });
 
 // Clean output directory
 gulp.task("clean", () => {
-  return gulp.src(["./js/*","./css/*"], { read: false }).pipe(clean());
+  return gulp.src(["./js/*", "./css/*"], { read: false }).pipe(clean());
 });
 
 // Detect Changes
 gulp.task("watch", () => {
   gulp.watch(src.sassPath, gulp.series("sass"));
-  gulp.watch(src.jsPath, gulp.series("js"));
-  gulp.watch('*.html').on('change', browsersync.reload);
+  gulp.watch(src.jsPathWatch, gulp.series("js"));
+  gulp.watch("*.html").on("change", browsersync.reload);
 });
 
 // Build
-gulp.task('build', gulp.series(gulp.parallel('sass', 'js')));
+gulp.task("build", gulp.series(gulp.parallel("sass", "js")));
 
 // Run Gulp
-gulp.task('default', gulp.series(gulp.parallel('sass', 'js', 'browser-sync', 'watch')));
+gulp.task(
+  "default",
+  gulp.series(gulp.parallel("sass", "js", "browser-sync", "watch"))
+);
