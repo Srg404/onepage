@@ -77,18 +77,24 @@ a {
     display: block;
     text-align: right;
     font-size: 0.75em;
+    position: relative;
+    &::before {
+      transition: opacity 1s ease;
+      opacity: 0;
+      visibility: visible;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      content: "░░░░░░░░░░░░";
+    }
   }
   &.animating {
     em {
       visibility: hidden;
-      position: relative;
-      &::after {
+      &::before {
         animation: 0.5s infinite alternate blink;
-        visibility: visible;
-        position: absolute;
-        top: 0;
-        right: 0;
-        content: "░░░░░░░░░░";
+        opacity: 1;
       }
     }
   }
@@ -96,37 +102,37 @@ a {
 
 @keyframes blink {
   100% {
-    content: "▒░░░░░░░░░░";
+    content: "▒░░░░░░░░░░░";
   }
   90% {
-    content: "░▒░░░░░░░░░";
+    content: "░▒░░░░░░░░░░";
   }
   80% {
-    content: "░░▒░░░░░░░░";
+    content: "░░░▒░░░░░░░░";
   }
   70% {
-    content: "░░░▒░░░░░░░";
+    content: "░░░░░▒░░░░░░";
   }
   60% {
-    content: "░░░░▒░░░░░░";
+    content: "░░░░░░▒░░░░░";
   }
   50% {
-    content: "░░░░░▒░░░░░";
+    content: "░░░░░░░▒░░░░";
   }
   40% {
-    content: "░░░░░░▒░░░░";
+    content: "░░░░░░░░▒░░░";
   }
   30% {
-    content: "░░░░░░░▒░░░";
+    content: "░░░░░░░░▒░░░";
   }
   20% {
-    content: "░░░░░░░░▒░░";
+    content: "░░░░░░░░░▒░░";
   }
   10% {
-    content: "░░░░░░░░░▒░";
+    content: "░░░░░░░░░░▒░";
   }
   0% {
-    content: "░░░░░░░░░░▒";
+    content: "░░░░░░░░░░░▒";
   }
 }
 
@@ -151,7 +157,7 @@ section {
     color: $white;
     .background {
       width: 100%;
-      height: 150%;
+      height: 125%;
       background-image: url(../images/3109.jpg);
     }
   }
