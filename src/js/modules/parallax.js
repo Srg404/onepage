@@ -92,7 +92,6 @@ const parralaxEffect = (sections) => {
   /* Resize */
   let resizeTimeOut = null;
   const reportResize = () => {
-    console.log("hello");
     clearTimeout(resizeTimeOut);
     resizeTimeOut = setTimeout(function () {
       bckAnimations.forEach((el) => {

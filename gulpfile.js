@@ -45,7 +45,6 @@ gulp.task("sass", () => {
 gulp.task("js", () => {
   return gulp
     .src(src.jsPath)
-    .pipe(sourcemaps.init())
     .pipe(
       babel({
         presets: ["@babel/env"],
@@ -58,7 +57,6 @@ gulp.task("js", () => {
     )
     .pipe(rename("scripts.min.js"))
     .pipe(uglify())
-    .pipe(sourcemaps.write(src.mapPath))
     .pipe(gulp.dest("js"))
     .pipe(browsersync.reload({ stream: true }));
 });

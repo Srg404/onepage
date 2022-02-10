@@ -57,8 +57,8 @@ a {
 .quote {
   position: relative;
   p {
-    &::before,
-    &::after {
+    line-height: 1.35em;
+    &::before {
       content: '"';
       display: block;
       font-size: 4em;
@@ -71,18 +71,62 @@ a {
       top: 0;
       transform: translate(-125%, -30%) rotate(180deg);
     }
-    &::after {
-      content: normal;
-      right: 0;
-      bottom: 0;
-      transform: translate(125%, 0);
-    }
   }
   em {
     margin-top: 2.5em;
     display: block;
     text-align: right;
     font-size: 0.75em;
+  }
+  &.animating {
+    em {
+      visibility: hidden;
+      position: relative;
+      &::after {
+        animation: 0.5s infinite alternate blink;
+        visibility: visible;
+        position: absolute;
+        top: 0;
+        right: 0;
+        content: "░░░░░░░░░░";
+      }
+    }
+  }
+}
+
+@keyframes blink {
+  100% {
+    content: "▒░░░░░░░░░░";
+  }
+  90% {
+    content: "░▒░░░░░░░░░";
+  }
+  80% {
+    content: "░░▒░░░░░░░░";
+  }
+  70% {
+    content: "░░░▒░░░░░░░";
+  }
+  60% {
+    content: "░░░░▒░░░░░░";
+  }
+  50% {
+    content: "░░░░░▒░░░░░";
+  }
+  40% {
+    content: "░░░░░░▒░░░░";
+  }
+  30% {
+    content: "░░░░░░░▒░░░";
+  }
+  20% {
+    content: "░░░░░░░░▒░░";
+  }
+  10% {
+    content: "░░░░░░░░░▒░";
+  }
+  0% {
+    content: "░░░░░░░░░░▒";
   }
 }
 

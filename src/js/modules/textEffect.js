@@ -1,50 +1,69 @@
 const textEffect = (element) => {
   const chars =
-    "░▒▓▀█▄■abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&*+/Ø?@"; // ╣╗╝║╚╔╠
-  const target = document.querySelector(element);
-  const tContent = target.textContent;
+    "░▒▓▀█▄■abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàçù.',!?#$%&*-+/Ø@";
+  const container = document.querySelector(element);
+  const target = document.querySelector(`${element} .text`);
+  const targetContent = target.textContent.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
 
-  const transform = (word) => {
-    const newWord = word.split("").map((letter, i) => {
+  const transform = (sentence, flag) => {
+    const newSentence = sentence.split("").map((letter, i) => {
       if (letter == " ") {
-        return letter;
+        return " ";
+      } else if (flag && targetContent[i] == letter) {
+        return targetContent[i];
       } else {
-        const newLetter = chars[Math.floor(Math.random() * chars.length)];
-        return newLetter;
+        return chars[Math.floor(Math.random() * chars.length)];
       }
     });
-    return newWord.join("");
+    return newSentence.join("");
   };
 
-  const effect = (target) => {
-    target.innerHTML = transform(tContent);
-  };
-
+  let newTargetContent = transform(targetContent, false);
   let anim = null;
-  let i = 0;
 
   const interval = () => {
+    container.classList.add("animating");
     anim = setInterval(() => {
-      i++;
-      // console.log(i);
-      if (i < 2500000000) {
-        effect(target);
+      newTargetContent = transform(newTargetContent, true);
+      if (newTargetContent !== targetContent) {
+        target.innerHTML = newTargetContent;
       } else {
-        i = 0;
         clearInterval(anim);
-        target.innerHTML = tContent;
+        container.classList.remove("animating");
+        target.innerHTML = targetContent;
+        anim = null;
       }
-    }, 33);
+    }, 15);
   };
 
-  target.addEventListener("mouseleave", interval);
   target.addEventListener("mouseenter", () => {
-    i = 0;
-    clearInterval(anim);
-    target.innerHTML = tContent;
+    console.log("mouseenter");
+    if (anim == null) {
+      newTargetContent = transform(targetContent, false);
+      interval();
+    }
   });
 
-  interval();
+  const init = () => {
+    target.style.width = `${target.offsetWidth}px`;
+    target.style.height = `${target.offsetHeight}px`;
+    newTargetContent = transform(targetContent, false);
+    interval();
+  };
+
+  init();
+
+  /* Resize */
+  let resizeTimeOut = null;
+  const reportResize = () => {
+    target.style.width = `auto`;
+    target.style.height = `auto`;
+    clearTimeout(resizeTimeOut);
+    resizeTimeOut = setTimeout(function () {
+      init();
+    }, 500);
+  };
+  window.addEventListener("resize", reportResize);
 };
 
 export default textEffect;
