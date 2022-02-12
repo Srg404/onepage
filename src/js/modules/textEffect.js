@@ -1,6 +1,6 @@
 const textEffect = (element) => {
   const chars =
-    "░▒▓▀█▄■abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàçù.',!?#$%&*-+/Ø@";
+    "░▒▓▀█▄■abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàùç.,'!?#$%&*-+/Ø@";
   const container = document.querySelector(element);
   const target = document.querySelector(`${element} .text`);
   const targetContent = target.textContent.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
@@ -33,7 +33,7 @@ const textEffect = (element) => {
         target.innerHTML = targetContent;
         anim = null;
       }
-    }, 15);
+    }, 5);
   };
 
   target.addEventListener("mouseenter", () => {
