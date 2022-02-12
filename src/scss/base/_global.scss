@@ -23,6 +23,26 @@ a {
 
 .quotes {
   color: $text-color;
+  .scroll {
+    &::before {
+      display: block;
+      content: url(../images/mouse-scroll-01.svg);
+      width: 20px;
+      height: 60px;
+    }
+    width: 65px;
+    height: 65px;
+    bottom: 20px;
+    right: 20px;
+    // transform: translateX(50%);
+    z-index: 100;
+    background-color: rgba($white, 0.5);
+    border-radius: 25%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   section {
     color: inherit;
     height: 100vh;
@@ -77,62 +97,6 @@ a {
     display: block;
     text-align: right;
     font-size: 0.75em;
-    position: relative;
-    &::before {
-      transition: opacity 1s ease;
-      opacity: 0;
-      visibility: visible;
-      position: absolute;
-      z-index: -1;
-      top: 0;
-      right: 0;
-      content: "░░░░░░░░░░░░";
-    }
-  }
-  &.animating {
-    em {
-      visibility: hidden;
-      &::before {
-        animation: 0.5s infinite alternate blink;
-        opacity: 1;
-      }
-    }
-  }
-}
-
-@keyframes blink {
-  100% {
-    content: "▒░░░░░░░░░░░";
-  }
-  90% {
-    content: "░▒░░░░░░░░░░";
-  }
-  80% {
-    content: "░░░▒░░░░░░░░";
-  }
-  70% {
-    content: "░░░░░▒░░░░░░";
-  }
-  60% {
-    content: "░░░░░░▒░░░░░";
-  }
-  50% {
-    content: "░░░░░░░▒░░░░";
-  }
-  40% {
-    content: "░░░░░░░░▒░░░";
-  }
-  30% {
-    content: "░░░░░░░░▒░░░";
-  }
-  20% {
-    content: "░░░░░░░░░▒░░";
-  }
-  10% {
-    content: "░░░░░░░░░░▒░";
-  }
-  0% {
-    content: "░░░░░░░░░░░▒";
   }
 }
 
@@ -147,18 +111,65 @@ section {
     background: #264653;
     color: $white;
     .background {
-      width: 100%;
-      height: 120%;
-      background-image: url(../images/1465.jpg);
+      width: 150%;
+      height: 150%;
+      // background-image: url(../images/1465.jpg);
+      background-image: radial-gradient(circle at center center, transparent, rgb(33, 33, 33)),
+        repeating-linear-gradient(
+          135deg,
+          rgb(33, 33, 33) 0px,
+          rgb(33, 33, 33) 2px,
+          transparent 2px,
+          transparent 10px,
+          rgb(33, 33, 33) 10px,
+          rgb(33, 33, 33) 11px,
+          transparent 11px,
+          transparent 21px
+        ),
+        repeating-linear-gradient(45deg, rgb(47, 47, 47) 0px, rgb(47, 47, 47) 4px, transparent 4px, transparent 8px),
+        linear-gradient(90deg, rgb(33, 33, 33), rgb(33, 33, 33));
     }
   }
   &[id="section-asimov-2"] {
-    background: #2a9d8f;
+    background: #264653;
     color: $white;
     .background {
       width: 100%;
       height: 125%;
       background-image: url(../images/3109.jpg);
+    }
+    .element-1 {
+      z-index: 1;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      background: #264653;
+      transform: translate(0, -105%);
+      &::after {
+        content: "";
+        position: absolute;
+        height: 20%;
+        width: 120%;
+        left: -10%;
+        bottom: -5%;
+        transform: translate(0, 0);
+        background: url(../images/brush.svg) no-repeat center bottom;
+        background-size: 100% 100%;
+      }
+    }
+    .element-2 {
+      color: #264653;
+      z-index: 1;
+      position: absolute;
+      height: 20%;
+      width: 120%;
+      left: -10%;
+      top: -5%;
+      background: url(../images/brush.svg) no-repeat center center;
+      background-size: 100% 100%;
+      transform: translate(0, 0);
     }
   }
   &[id="section-darwin-1"] {
@@ -167,7 +178,7 @@ section {
     .background {
       width: 110%;
       height: 100%;
-      background-image: url(../images/1623.jpg);
+      background-image: url(../images/1465.jpg);
     }
   }
   &[id="section-arendt-1"] {

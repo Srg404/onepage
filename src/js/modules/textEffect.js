@@ -1,16 +1,18 @@
-const textEffect = (element) => {
+const txtEffect = (element) => {
   const chars =
     "░▒▓▀█▄■abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàùç.,'!?#$%&*-+/Ø@";
   const container = document.querySelector(element);
-  const target = document.querySelector(`${element} .text`);
-  const targetContent = target.textContent.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
+  const txt = document.querySelector(`${element} .text`);
+  const txtContent = txt.textContent.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
+  const author = document.querySelector(`${element} .author`);
+  const authorContent = author.textContent.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
 
-  const transform = (sentence, flag) => {
+  const transform = (sentence, source) => {
     const newSentence = sentence.split("").map((letter, i) => {
       if (letter == " ") {
         return " ";
-      } else if (flag && targetContent[i] == letter) {
-        return targetContent[i];
+      } else if (sentence != source && source[i] == letter) {
+        return source[i];
       } else {
         return chars[Math.floor(Math.random() * chars.length)];
       }
@@ -18,37 +20,59 @@ const textEffect = (element) => {
     return newSentence.join("");
   };
 
-  let newTargetContent = transform(targetContent, false);
+  let newTxtContent = transform(txtContent, txtContent);
   let anim = null;
 
   const interval = () => {
-    container.classList.add("animating");
+    //container.classList.add("animating");
+    clearInterval(anim);
     anim = setInterval(() => {
-      newTargetContent = transform(newTargetContent, true);
-      if (newTargetContent !== targetContent) {
-        target.innerHTML = newTargetContent;
+      newTxtContent = transform(newTxtContent, txtContent);
+      if (newTxtContent !== txtContent) {
+        txt.innerHTML = newTxtContent;
       } else {
         clearInterval(anim);
-        container.classList.remove("animating");
-        target.innerHTML = targetContent;
+        //container.classList.remove("animating");
+        txt.innerHTML = txtContent;
         anim = null;
       }
     }, 5);
   };
 
-  target.addEventListener("mouseenter", () => {
+  let newAuthorContent = transform(authorContent, authorContent);
+  let animAuthor = null;
+
+  const intervalAuthor = () => {
+    clearInterval(animAuthor);
+    animAuthor = setInterval(() => {
+      newAuthorContent = transform(newAuthorContent, authorContent);
+      if (newAuthorContent !== authorContent) {
+        author.innerHTML = newAuthorContent;
+      } else {
+        clearInterval(animAuthor);
+        author.innerHTML = authorContent;
+        animAuthor = null;
+      }
+    }, 5);
+  };
+
+  txt.addEventListener("mouseenter", () => {
     console.log("mouseenter");
     if (anim == null) {
-      newTargetContent = transform(targetContent, false);
+      newTxtContent = transform(txtContent, txtContent);
       interval();
+      newAuthorContent = transform(authorContent, authorContent);
+      intervalAuthor();
     }
   });
 
   const init = () => {
-    target.style.width = `${target.offsetWidth}px`;
-    target.style.height = `${target.offsetHeight}px`;
-    newTargetContent = transform(targetContent, false);
+    txt.style.width = `${txt.offsetWidth}px`;
+    txt.style.height = `${txt.offsetHeight}px`;
+    newTxtContent = transform(txtContent, txtContent);
     interval();
+    newAuthorContent = transform(authorContent, authorContent);
+    clearInterval(animAuthor);
   };
 
   init();
@@ -56,14 +80,15 @@ const textEffect = (element) => {
   /* Resize */
   let resizeTimeOut = null;
   const reportResize = () => {
-    target.style.width = `auto`;
-    target.style.height = `auto`;
+    txt.style.width = `auto`;
+    txt.style.height = `auto`;
     clearTimeout(resizeTimeOut);
     resizeTimeOut = setTimeout(function () {
-      init();
+      txt.style.width = `${txt.offsetWidth}px`;
+      txt.style.height = `${txt.offsetHeight}px`;
     }, 500);
   };
   window.addEventListener("resize", reportResize);
 };
 
-export default textEffect;
+export default txtEffect;
