@@ -5,32 +5,8 @@ import "particles.js/particles";
 
 gsap.registerPlugin(ScrollTrigger);
 
-particlesJS("smokeEffect", particlesJSConfig);
-
 const animations = () => {
-  const asimov2 = gsap
-    .timeline({
-      default: {
-        ease: "power1.out",
-      },
-      scrollTrigger: {
-        trigger: "#section-asimov-2",
-        pin: false,
-        start: "top center",
-        end: "40% center",
-        scrub: 1,
-      },
-    })
-    .fromTo(
-      "#section-asimov-2 .quote",
-      {
-        autoAlpha: 0,
-        y: "-150%",
-        filter: "blur(5px)",
-        transform: "rotate(-2.5deg)",
-      },
-      { autoAlpha: 1, y: 0, filter: "blur(0px)", transform: "rotate(0deg)" }
-    );
+  particlesJS("smokeEffect", particlesJSConfig);
 
   const arendt = gsap.timeline({
     scrollTrigger: {
@@ -42,17 +18,22 @@ const animations = () => {
     },
   });
 
-  const king = gsap
+  const hugo1 = gsap
     .timeline({
+      default: {
+        ease: "power1.out",
+      },
       scrollTrigger: {
-        trigger: "#section-king-1",
-        start: "top center",
-        end: "bottom center",
+        trigger: "#section-hugo-1",
+        pin: true,
         scrub: 1,
-        markers: false,
+        refreshPriority: -1,
       },
     })
-    .fromTo("#section-king-1 .quote", { y: "-20%" }, { y: 0 });
+    //.fromTo("#section-hugo-1 .element-0", { x: `0` }, { x: `100%` })
+    .fromTo("#section-hugo-1 .element-1", { x: `-100%` }, { x: `0` })
+    // .fromTo("#section-hugo-1 .element-1", { x: `0` }, { x: `100%` })
+    .fromTo("#section-hugo-1 .element-2", { x: `-100%` }, { x: `0` });
 
   const brient1 = gsap
     .timeline({
@@ -64,8 +45,8 @@ const animations = () => {
     })
     .fromTo(
       "#section-brient-1 .element",
-      { maskPosition: `0 0` },
-      { maskPosition: "200% 0" }
+      { maskPosition: `200% 0%` },
+      { maskPosition: "0% 0%" }
     );
 
   const widthChomsky1 =
@@ -112,6 +93,45 @@ const animations = () => {
       { maskPosition: `0px  ${heightChomsky1 * 4}px` }
     )
     .set("#section-chomsky-1 .element-1", { maskSize: `100% 101%` });
+
+  const king = gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: "#section-king-1",
+        start: "top center",
+        end: "bottom center",
+        scrub: 1,
+        markers: false,
+        refreshPriority: -1,
+      },
+    })
+    .fromTo("#section-king-1 .quote", { y: "-20%" }, { y: 0 });
+
+  const asimov2 = gsap
+    .timeline({
+      default: {
+        ease: "power1.out",
+      },
+      scrollTrigger: {
+        trigger: "#section-asimov-2",
+        pin: false,
+        start: "top center",
+        end: "40% center",
+        scrub: 1,
+      },
+    })
+    .fromTo(
+      "#section-asimov-2 .quote",
+      {
+        autoAlpha: 0,
+        y: "-150%",
+        filter: "blur(5px)",
+        transform: "rotate(-2.5deg)",
+      },
+      { autoAlpha: 1, y: 0, filter: "blur(0px)", transform: "rotate(0deg)" }
+    );
+
+  ScrollTrigger.refresh();
 };
 
 export default animations;

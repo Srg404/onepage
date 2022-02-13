@@ -138,39 +138,13 @@ section {
     color: $white;
     .quote {
       text-shadow: none;
+      transform-origin: 0% 0%;
     }
     .background {
       width: 150%;
       height: 100%;
       background-image: url(../images/2918.jpg);
     }
-    /*
-    .element-1 {
-      z-index: 1;
-      position: absolute;
-      height: 105%;
-      width: 120%;
-      left: 0;
-      top: 0;
-      background: url(../images/colored.svg) no-repeat center bottom;
-      background-size: 100% 100%;
-      transform: translate(0, -100%);
-      filter: blur(2px);
-    }
-    .element-2 {
-      color: #264653;
-      z-index: 1;
-      position: absolute;
-      height: 20%;
-      width: 120%;
-      left: -10%;
-      top: 0;
-      background: url(../images/brush.svg) no-repeat center center;
-      background-size: 100% 100%;
-      transform: translate(0, 0);
-      filter: blur(2px);
-    }
-    */
   }
   &[id="section-darwin-1"] {
     background: #e9c46a;
@@ -233,7 +207,7 @@ section {
       top: 50%;
       transform: translate(-50%, -50%) rotate(185deg);
       filter: blur(1px);
-      opacity: 0.45;
+      opacity: 0.5;
     }
   }
   &[id="section-king-1"] {
@@ -256,7 +230,7 @@ section {
       top: 50%;
       transform: translate(-50%, -50%) rotate(5deg);
       filter: blur(1px);
-      opacity: 0.85;
+      opacity: 0.5;
     }
   }
   &[id="section-chomsky-1"] {
@@ -308,10 +282,41 @@ section {
   }
   &[id="section-hugo-1"] {
     background: #2a9d8f;
-    .background {
+    .quote::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      background: url(../images/dirt-01.svg) no-repeat center center;
+      background-size: 100% 100%;
+      height: 130%;
+      width: 120%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(5deg);
+      filter: blur(1px);
+      opacity: 0.5;
+    }
+    .element-0,
+    .element-1,
+    .element-2 {
+      z-index: 2;
+      position: absolute;
+      height: 100%;
       width: 100%;
-      height: 150%;
-      background-image: url(../images/2022.jpg);
+      left: 0;
+      top: 0;
+      background-position: center center;
+      background-size: cover;
+    }
+    .element-0 {
+      background-image: url(../images/8459.jpg);
+    }
+    .element-1 {
+      background-image: url(../images/8318.jpg);
+    }
+    .element-2 {
+      background-image: url(../images/8158.jpg);
     }
   }
   &[id="section-orwell-1"] {
