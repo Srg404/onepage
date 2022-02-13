@@ -34,6 +34,7 @@
     "webpack-stream": "^7.0.0"
   },
   "dependencies": {
-    "gsap": "^3.9.1"
+    "gsap": "^3.9.1",
+    "particles.js": "^2.0.0"
   }
 }

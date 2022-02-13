@@ -48,6 +48,19 @@ const parralaxEffect = (sections) => {
             endY: 0,
           };
           break;
+        case "down":
+          if (bckHeightDiff <= 0) {
+            console.warn(
+              `Warning : ${el.parentElement.id} ".background" height <= 100%`
+            );
+          }
+          animDir = {
+            startX: 0,
+            endX: 0,
+            startY: 0,
+            endY: `-${bckHeightDiff}`,
+          };
+          break;
         default:
           if (bckHeightDiff <= 0) {
             console.warn(

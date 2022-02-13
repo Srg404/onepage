@@ -76,6 +76,8 @@ a {
 
 .quote {
   position: relative;
+  color: $white;
+  text-shadow: 0.075em 0.075em $black;
   p {
     line-height: 1.35em;
     &::before {
@@ -85,11 +87,13 @@ a {
       line-height: 1em;
       position: absolute;
       font-family: "Palanquin Dark", sans-serif;
-    }
-    &::before {
       left: 0;
       top: 0;
-      transform: translate(-125%, -30%) rotate(180deg);
+      transform: translate(0, -65%) rotate(180deg);
+      text-shadow: none;
+      @include respond-to(wide) {
+        transform: translate(-125%, -30%) rotate(180deg);
+      }
     }
   }
   em {
@@ -109,7 +113,6 @@ section {
   }
   &[id="section-asimov-1"] {
     background: #264653;
-    color: $white;
     .background {
       width: 150%;
       height: 150%;
@@ -133,11 +136,15 @@ section {
   &[id="section-asimov-2"] {
     background: #264653;
     color: $white;
-    .background {
-      width: 125%;
-      height: 125%;
-      background-image: url(../images/3109.jpg);
+    .quote {
+      text-shadow: none;
     }
+    .background {
+      width: 150%;
+      height: 100%;
+      background-image: url(../images/2918.jpg);
+    }
+    /*
     .element-1 {
       z-index: 1;
       position: absolute;
@@ -148,6 +155,7 @@ section {
       background: url(../images/colored.svg) no-repeat center bottom;
       background-size: 100% 100%;
       transform: translate(0, -100%);
+      filter: blur(2px);
     }
     .element-2 {
       color: #264653;
@@ -160,7 +168,9 @@ section {
       background: url(../images/brush.svg) no-repeat center center;
       background-size: 100% 100%;
       transform: translate(0, 0);
+      filter: blur(2px);
     }
+    */
   }
   &[id="section-darwin-1"] {
     background: #e9c46a;
@@ -179,14 +189,51 @@ section {
       height: 150%;
       background-image: url(../images/3288.jpg);
     }
+    .element {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
   &[id="section-brient-1"] {
     background: #e76f51;
     color: $white;
     .background {
       width: 100%;
-      height: 150%;
+      height: 120%;
       background-image: url(../images/2083.jpg);
+    }
+    .element {
+      z-index: 2;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      background-image: url(../images/3194.jpg);
+      background-position: center center;
+      background-size: cover;
+      mask: url(../images/effect.png);
+      mask-repeat: no-repeat;
+      mask-size: 200% 100%;
+      mask-position: 200% 0px;
+    }
+    .quote::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      background: url(../images/dirt-01.svg) no-repeat center center;
+      background-size: 100% 100%;
+      height: 130%;
+      width: 116%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(185deg);
+      filter: blur(1px);
+      opacity: 0.45;
     }
   }
   &[id="section-king-1"] {
@@ -196,13 +243,67 @@ section {
       height: 150%;
       background-image: url(../images/8916.jpg);
     }
+    .quote::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      background: url(../images/dirt-01.svg) no-repeat center center;
+      background-size: 100% 100%;
+      height: 130%;
+      width: 120%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(5deg);
+      filter: blur(1px);
+      opacity: 0.85;
+    }
   }
   &[id="section-chomsky-1"] {
     background: #e9c46a;
+    .quote::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      background: url(../images/dirt-01.svg) no-repeat center center;
+      background-size: 100% 100%;
+      height: 130%;
+      width: 120%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(5deg);
+      filter: blur(1px);
+      opacity: 0.5;
+    }
     .background {
       width: 100%;
       height: 150%;
-      background-image: url(../images/3194.jpg);
+      background-image: url(../images/3891.jpg);
+    }
+    .element-2,
+    .element-1 {
+      z-index: 2;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      background-image: url(../images/3531.jpg);
+      background-position: center center;
+      background-size: cover;
+    }
+    .element-1 {
+      mask: url(../images/effect-1.png);
+      mask-repeat: no-repeat;
+      mask-size: 200% 100%;
+      mask-position: 200% 0px;
+    }
+    .element-2 {
+      mask: url(../images/effect-3.png);
+      mask-repeat: no-repeat;
+      mask-size: 110% 20%;
+      mask-position: 0 0;
     }
   }
   &[id="section-hugo-1"] {
