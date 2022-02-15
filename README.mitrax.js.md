@@ -11,10 +11,6 @@ init mitrax.js and configure the effect:
 **index.html**
 
 ```html
-<link href="mitrax.css" rel="stylesheet" />
-/* if you doesn't want add this css file you can just add ".mitrax > span {
-display:inline-block }" in your own CSS */
-
 <script src="mitrax.js"></script>
 ```
 
