@@ -78,6 +78,10 @@ a {
   position: relative;
   color: $white;
   text-shadow: 0.075em 0.075em $black;
+  div.myText {
+    font-size: 1.5em;
+    font-family: "Times New Roman", Times, serif;
+  }
   p {
     line-height: 1.35em;
     &::before {
