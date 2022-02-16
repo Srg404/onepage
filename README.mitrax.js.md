@@ -26,17 +26,19 @@ mitraxJS.init("mitrax", "{}", function () {
 **By default mitraxJS use only this characters :**
 
 ```javascript
-"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàùç";
+"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 ```
 
 ### `Options`
 
-| key                  | type   | example                                                               |
-| -------------------- | ------ | --------------------------------------------------------------------- |
-| `mitrax.autoStart`   | bolean | true (default)                                                        |
-| `mitrax.extraChar`   | string | "µ$#"                                                                 |
-| `mitrax.maxDuration` | number | 2 (second)                                                            |
-| `mitrax.newCharList` | string | "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàùç" (default) |
+| key                  | type    | example                                                               |
+| -------------------- | ------- | --------------------------------------------------------------------- |
+| `mitrax.autoStart`   | bolean  | true (default)                                                        |
+| `mitrax.extraChar`   | string  | "µ$#"                                                                 |
+| `mitrax.maxDuration` | number  | 2 (second)                                                            |
+| `mitrax.speed`       | value   | 'slow', 'normal' (default) ,high'                                     |
+| `mitrax.infini`      | boolean | false (default)                                                       |
+| `mitrax.newCharList` | string  | "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàùç" (default) |
 
 ### `Actions`
 

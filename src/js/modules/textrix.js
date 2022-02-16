@@ -28,18 +28,20 @@ const defaults = {
   autoStart: true,
   extraChar: "",
   maxDuration: null,
-  charList: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZéèàùç",
+  charList: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
 };
 
 export default class textrix {
-  constructor(element, options) {
+  constructor(element, options, callback) {
     this.version = "0.0.1";
 
     this.element = document.querySelector(element);
     this.options = { ...defaults, ...options };
+    this.callback = callback;
 
     this.animation = null; // for setInterval
     this.txt = this.element.textContent.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
+    this.words = []; // for the sentence cutting by word
 
     this.charList = unique(
       this.options.charList + this.txt + this.options.extraChar
@@ -47,36 +49,38 @@ export default class textrix {
       .split(" ")
       .join("");
 
-    this.newTxt = this.txt;
-
     this.init();
   }
 
   init() {
-    console.log("init");
-
-    this.newTxt = transform(this.newTxt, this.txt, this.charList);
-
-    this.element.style.cssText = "";
-
-    // wrap each letters and add style width //
+    // remove element content
     this.element.innerHTML = "";
-    this.txt.split("").forEach((element) => {
-      let wrapper = document.createElement("span");
-      wrapper.innerHTML = element;
 
-      if (element !== " ") {
-        this.element.appendChild(wrapper).style.cssText =
-          "display: inline-block;";
-      } else {
-        this.element.appendChild(wrapper).style.cssText =
-          "display: inline-block; white-space: pre;";
-      }
+    // wrap each words with a <span />
+    this.txt.split(" ").forEach((element, i, array) => {
+      let wrapper = document.createElement("span");
+      wrapper.classList.add("textrix-word");
+      // no empty space for the last word
+      wrapper.innerHTML = i != array.length - 1 ? element + " " : element;
+      this.words.push(wrapper.textContent);
+      this.element.appendChild(wrapper).style.cssText =
+        "display: inline-block; white-space: pre;";
     });
 
-    this.element.querySelectorAll("span").forEach((element) => {
-      //console.log(element.textContent, element.offsetWidth);
-      element.style.width = `${element.offsetWidth}px`;
+    // wrap each letters with a <span />
+    this.element.querySelectorAll("span").forEach((element, i) => {
+      let word = element.textContent;
+      // remove <span>word</span> content
+      element.innerHTML = "";
+      word.split("").forEach((letter) => {
+        let wrapper = document.createElement("span");
+        wrapper.innerHTML = letter;
+        element.appendChild(wrapper).style.cssText =
+          "display: inline-block; white-space: pre;";
+      });
+      element.querySelectorAll("span").forEach((el) => {
+        el.style.width = `${el.offsetWidth}px`;
+      });
     });
 
     if (this.options.autoStart) {
@@ -84,47 +88,50 @@ export default class textrix {
     }
   }
 
-  start() {
-    console.log("Start");
-
+  stop(noCallback) {
     clearInterval(this.animation);
+    this.element.querySelectorAll(".textrix-word").forEach((word, iWord) => {
+      word.querySelectorAll("span").forEach((letter, iLetter) => {
+        letter.innerHTML = this.words[iWord][iLetter];
+      });
+    });
+    // make an array with the first random sentence
+    this.newWords = this.words.map((el) => {
+      return [transform(el, el, this.charList), false];
+    });
+    if (!noCallback) {
+      this.callback();
+    }
+  }
 
+  start() {
+    this.stop(true);
     this.animation = setInterval(() => {
-      this.newTxt = transform(this.newTxt, this.txt, this.charList);
-      if (this.newTxt != this.txt) {
-        // this.element.innerHTML = this.newTxt;
-        //*/
-        this.element.querySelectorAll("span").forEach((element, index) => {
-          element.innerHTML = this.newTxt[index];
+      if (this.newWords.filter((x) => x[1]).length != this.newWords.length) {
+        this.newWords = this.newWords.map((el, i) => {
+          if (!el[1]) {
+            let newEl = transform(el[0], this.words[i], this.charList);
+            let equal = newEl == this.words[i] ? true : false;
+            return [newEl, equal];
+          } else {
+            return el;
+          }
         });
-        //*/
+        this.element
+          .querySelectorAll(".textrix-word")
+          .forEach((word, iWord) => {
+            word.querySelectorAll("span").forEach((letter, iLetter) => {
+              letter.innerHTML = this.newWords[iWord][0][iLetter];
+            });
+          });
       } else {
-        clearInterval(this.animation);
-        // this.element.innerHTML = this.txt;
-        //*/
-        this.element.querySelectorAll("span").forEach((element, index) => {
-          element.innerHTML = this.txt[index];
-        });
-        //*/
-        this.animation = null;
+        this.stop();
       }
     }, 5);
   }
 
-  stop() {
-    console.log("Stop");
-    clearInterval(this.animation);
-    // this.element.innerHTML = this.txt;
-    //*/
-    this.element.querySelectorAll("span").forEach((element, index) => {
-      element.innerHTML = this.txt[index];
-    });
-    //*/
-  }
-
   destroy() {
     console.log("Destroy");
-
     this.element = null;
     this.options = { ...options, ...defaults };
     this.element.innerHTML = this.txt;

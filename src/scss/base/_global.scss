@@ -78,10 +78,7 @@ a {
   position: relative;
   color: $white;
   text-shadow: 0.075em 0.075em $black;
-  div.myText {
-    font-size: 1em;
-    //font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  }
+  line-height: 1.2em;
   p {
     line-height: 1.35em;
     &::before {
