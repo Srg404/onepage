@@ -106,6 +106,7 @@ export default class textrix {
 
   start() {
     this.stop(true);
+
     this.animation = setInterval(() => {
       if (this.newWords.filter((x) => x[1]).length != this.newWords.length) {
         this.newWords = this.newWords.map((el, i) => {
@@ -131,7 +132,7 @@ export default class textrix {
   }
 
   destroy() {
-    console.log("Destroy");
+    clearInterval(this.animation);
     this.element = null;
     this.options = { ...options, ...defaults };
     this.element.innerHTML = this.txt;
